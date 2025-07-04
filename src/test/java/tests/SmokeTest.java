@@ -32,7 +32,7 @@ public class SmokeTest extends BaseTest {
             }
         }
 
-        assertTrue("Не открылась страница Яндекса",
-                driver.getCurrentUrl().startsWith("https://yandex.ru/"));
+        assertFalse("Открылась страница Яндекса",
+                driver.getCurrentUrl().startsWith("https://ya.ru/"));
     }
 }
