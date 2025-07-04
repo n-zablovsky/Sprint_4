@@ -6,8 +6,10 @@ import org.junit.runners.Parameterized;
 import pages.MainPage;
 import pages.OrderPage;
 import utils.BaseTest;
+
 import java.util.Arrays;
 import java.util.Collection;
+
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
@@ -31,7 +33,7 @@ public class OrderTest extends BaseTest {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
+        return Arrays.asList(new Object[][]{
                 {"Иван", "Иванов", "ул. Ленина, 1", "Черкизовская", "+79998887766", true},
                 {"Петр", "Петров", "ул. Пушкина, 10", "Сокольники", "+79997776655", false}
         });

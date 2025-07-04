@@ -24,10 +24,9 @@ public class FaqTest extends BaseTest {
     }
 
 
-
     @Parameterized.Parameters(name = "FAQ question #{0}")
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
+        return Arrays.asList(new Object[][]{
                 {0, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
                 {1, "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
                 {2, "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
@@ -47,7 +46,7 @@ public class FaqTest extends BaseTest {
         mainPage.clickQuestion(index);
         String actualText = mainPage.getAnswer(index);
         assertFalse("Ответ не должен быть пустым", actualText.isEmpty());
-        assertTrue("Ответ на вопрос #" + (index+1) + " не соответствует ожидаемому.\n" +
+        assertTrue("Ответ на вопрос #" + (index + 1) + " не соответствует ожидаемому.\n" +
                         "Ожидалось: " + expectedText + "\n" +
                         "Получено: " + actualText,
                 actualText.equals(expectedText));

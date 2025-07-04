@@ -3,6 +3,7 @@ package tests;
 import org.junit.Test;
 import pages.MainPage;
 import utils.BaseTest;
+
 import static org.junit.Assert.*;
 
 public class SmokeTest extends BaseTest {
@@ -21,8 +22,6 @@ public class SmokeTest extends BaseTest {
 
         String originalWindow = driver.getWindowHandle();
         mainPage.clickYandexLogo();
-
-
 
 
         for (String windowHandle : driver.getWindowHandles()) {

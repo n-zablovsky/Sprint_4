@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class MainPage {
     private final By faqSection = By.className("Home_FAQ__3uVm4");
     private final By questionButtons = By.cssSelector(".accordion__button");
     private final By answerPanels = By.cssSelector(".accordion__panel");
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -33,6 +35,7 @@ public class MainPage {
         driver.get("https://qa-scooter.praktikum-services.ru/");
         acceptCookies();
     }
+
     public void clickQuestion(int index) {
         // Ждем загрузки всего раздела FAQ
         wait.until(ExpectedConditions.visibilityOfElementLocated(faqSection));
@@ -45,8 +48,8 @@ public class MainPage {
 
         WebElement question = questions.get(index);
         // Скролл и клик через JavaScript для надежности
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", question);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", question);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", question);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", question);
 
         // Ждем раскрытия ответа
         wait.until(d -> {
@@ -64,9 +67,11 @@ public class MainPage {
 
         return answers.get(index).getText();
     }
+
     public int getQuestionsCount() {
         return driver.findElements(questionButtons).size();
     }
+
     public void acceptCookies() {
         try {
             WebElement cookieBannerElement = wait.until(ExpectedConditions.visibilityOfElementLocated(cookieBanner));
@@ -84,7 +89,7 @@ public class MainPage {
 
     public void clickOrderButtonBottom() {
         WebElement element = driver.findElement(bottomOrderButton);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
     }
 
