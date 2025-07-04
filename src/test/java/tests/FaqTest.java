@@ -2,7 +2,7 @@ package tests;
 
 import org.junit.Test;
 import pages.MainPage;
-import pages.components.FaqComponent;
+
 import utils.BaseTest;
 import static org.junit.Assert.*;
 
@@ -23,8 +23,8 @@ public class FaqTest extends BaseTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
 
-        FaqComponent faq = new FaqComponent(driver);
-        int questionCount = faq.getQuestionsCount();
+
+        int questionCount = mainPage.getQuestionsCount();
 
         // Проверяем количество вопросов
         assertEquals("Количество вопросов в FAQ не соответствует ожидаемому",
@@ -36,10 +36,10 @@ public class FaqTest extends BaseTest {
                 System.out.println("Проверка вопроса #" + (i+1));
 
                 // Кликаем на вопрос
-                faq.clickQuestion(i);
+                mainPage.clickQuestion(i);
 
                 // Получаем текст ответа
-                String actualAnswer = faq.getAnswer(i);
+                String actualAnswer = mainPage.getAnswer(i);
                 System.out.println("Ответ: " + actualAnswer);
 
                 // Проверяем соответствие ожидаемому ответу
