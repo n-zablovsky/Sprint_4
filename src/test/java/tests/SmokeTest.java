@@ -22,8 +22,8 @@ public class SmokeTest extends BaseTest {
         String originalWindow = driver.getWindowHandle();
         mainPage.clickYandexLogo();
 
-        // Ждем открытия нового окна
-        Thread.sleep(2000); // Временное решение для демонстрации
+
+
 
         for (String windowHandle : driver.getWindowHandles()) {
             if (!originalWindow.equals(windowHandle)) {
