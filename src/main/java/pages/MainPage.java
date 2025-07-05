@@ -25,6 +25,8 @@ public class MainPage {
     private final By questionButtons = By.cssSelector(".accordion__button");
     private final By answerPanels = By.cssSelector(".accordion__panel");
 
+    public static final String URL = "https://qa-scooter.praktikum-services.ru/";
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -32,7 +34,7 @@ public class MainPage {
 
     // Основные методы
     public void open() {
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URL);
         acceptCookies();
     }
 
