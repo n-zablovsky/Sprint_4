@@ -16,45 +16,52 @@ public class OrderPage {
     // Локаторы для формы заказа
     private final By nextButton = By.xpath("//button[text()='Далее']");
     private final By orderButton = By.xpath("(//button[text()='Заказать'])[2]");
-    private final By successModal = By.className("Order_ModalHeader");
+    private final By yesButton = By.xpath ("//button[text()=\"Да\"]");
+    private final By InfoModal = By.className("Order_ModalHeader__3FDaJ");
+
+    private final By nameField = By.xpath(".//input[@placeholder='* Имя']");
+    private final By lastNameField = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By addressField = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private final By metroField = By.xpath(".//input[@placeholder='* Станция метро']");
+    private final By metroSuggestionField = By.xpath("//li[@class='select-search__row']");
+    private final By phoneField = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private final By dateField = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    private final By rentRangeField = By.xpath("//div[@class='Dropdown-placeholder' and text()='* Срок аренды']");
+    private final By CommentField = By.xpath("//input[@placeholder='Комментарий для курьера']");
+
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public WebElement findElementByPlaceholder(String placeholderContent) {
-        String fullContent = String.format("//input[@placeholder='* %s']", placeholderContent);
-        return driver.findElement(By.xpath(fullContent));
-    }
-
     public void fillCustomerNameField(String name) {
-        WebElement nameField = findElementByPlaceholder("Имя");
-        nameField.sendKeys(name);
+        WebElement nameElement = driver.findElement(nameField);
+        nameElement.sendKeys(name);
     }
 
     public void fillCustomerLastNameField(String lastName) {
-        WebElement lastNameField = findElementByPlaceholder("Фамилия");
-        lastNameField.sendKeys(lastName);
+        WebElement lastNameElement = driver.findElement(lastNameField);
+        lastNameElement.sendKeys(lastName);
     }
 
     public void fillCustomerAddressField(String address) {
-        WebElement addressField = findElementByPlaceholder("Адрес: куда привезти заказ");
-        addressField.sendKeys(address);
+        WebElement addressElement = driver.findElement(addressField);
+        addressElement.sendKeys(address);
     }
 
     public void fillCustomerMetroField(String metro) {
-        WebElement metroField = findElementByPlaceholder("Станция метро");
-        metroField.sendKeys(metro);
+        WebElement metroElement = driver.findElement(metroField);
+        metroElement.sendKeys(metro);
         WebElement suggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//li[@class='select-search__row']")
+                metroSuggestionField
         ));
         suggestion.click();
     }
 
     public void fillCustomerPhoneField(String phone) {
-        WebElement phoneField = findElementByPlaceholder("Телефон: на него позвонит курьер");
-        phoneField.sendKeys(phone);
+        WebElement phoneElement = driver.findElement(phoneField);
+        phoneElement.sendKeys(phone);
     }
 
     public void fillCustomerInfo(String name, String lastName, String address, String metro, String phone) {
@@ -68,16 +75,14 @@ public class OrderPage {
     }
 
     public void fillDateField(String date) {
-        WebElement dateField = findElementByPlaceholder("Когда привезти самокат");
-        dateField.sendKeys(date);
-        dateField.sendKeys(Keys.ESCAPE);
+        WebElement dateElement = driver.findElement(dateField);
+        dateElement.sendKeys(date);
+        dateElement.sendKeys(Keys.ESCAPE);
     }
 
     public void fillRentRangeField(String rentPeriod) {
-        WebElement rentRangeBlock = driver.findElement(
-                By.xpath("//div[@class='Dropdown-placeholder' and text()='* Срок аренды']")
-        );
-        rentRangeBlock.click();
+        WebElement rentRangeElement = driver.findElement(rentRangeField);
+        rentRangeElement.click();
         String fullContent = String.format("//div[@class='Dropdown-option' and text()='%s']", rentPeriod);
         WebElement rentRangeField = driver.findElement(
                 By.xpath(fullContent)
@@ -89,9 +94,10 @@ public class OrderPage {
         WebElement checkbox = driver.findElement(By.id(colorId));
         checkbox.click();
     }
+
     public void fillCommentField(String comment) {
-        WebElement fullContent = driver.findElement(By.xpath("//input[@placeholder='Комментарий для курьера']"));
-        fullContent.sendKeys(comment);
+        WebElement CommentElement = driver.findElement(CommentField);
+        CommentElement.sendKeys(comment);
     }
 
     public void fillRentInfo(String date, String rentPeriod, String colorId, String comment) {
@@ -102,10 +108,13 @@ public class OrderPage {
 
         WebElement orderButtonElement = driver.findElement(orderButton);
         orderButtonElement.click();
+
+        WebElement yesButtonElement = driver.findElement(yesButton);
+        yesButtonElement.click();
     }
 
-    public boolean isOrderConfirmed() {
-        By yesButton = By.xpath("//button[text()='Да']");
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(yesButton)).isDisplayed();
+    public String getOrderStatus() {
+        WebElement CommentElement = driver.findElement(InfoModal);
+        return CommentElement.getText();
     }
 }

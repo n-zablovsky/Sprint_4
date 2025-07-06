@@ -62,6 +62,6 @@ public class OrderTest extends BaseTest {
         orderPage.fillCustomerInfo(name, lastName, address, metro, phone);
         orderPage.fillRentInfo(date, rentPeriod, colorId, comment);
 
-        assertTrue("Заказ не подтвержден", orderPage.isOrderConfirmed());
+        assertTrue ( "Заказ не подтвержден", orderPage.getOrderStatus().contains("Заказ оформлен"));
     }
 }
